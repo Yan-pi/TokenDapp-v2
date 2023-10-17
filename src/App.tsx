@@ -9,6 +9,7 @@ import { ethers } from "ethers";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { RocketIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/ui/button";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -49,8 +50,8 @@ function App() {
   // Saving provider in state
   useEffect(() => {
     setProvider(getProvider());
-    console.log(import.meta.env.VITE_TOKEN_ADDRESS)
-    }, []);
+    console.log(import.meta.env.VITE_TOKEN_ADDRESS);
+  }, []);
 
   // If provider exists, initiate the token repository
   useEffect(() => {
@@ -95,11 +96,11 @@ function App() {
 
   // Returning the page content
   return (
-    <div>
+    <div className="flex flex-col m-6">
       {/* HEADER */}
       <header>
-        <div>
-          <p>Sinform Token DApp</p>
+        <div className="flex flex-row  justify-between">
+          <p className="font-bold text-lg">Pie Token</p>
           {walletAddress ? (
             <>
               <p> {walletAddress}</p>
@@ -108,7 +109,7 @@ function App() {
               </div>
             </>
           ) : (
-            <button onClick={connect}>Connect Wallet</button>
+            <Button onClick={connect}>Connect Wallet</Button>
           )}
         </div>
       </header>
