@@ -2,6 +2,7 @@ import { useState } from "react";
 import { InputText } from "../components/InputText";
 import { InputNumber } from "../components/InputNumber";
 import TokenRepository from "../repositories/tokenRepository";
+import { Button } from "@/components/ui/button"
 
 interface ITransferProps {
   loading: boolean;
@@ -61,9 +62,9 @@ export function TransferSection({
               setTransferAmount(event.target.value);
             }}
           />
-          <button onClick={handleTransferSubmit}>
+          <Button onClick={handleTransferSubmit}>
             {loading ? "..." : "Transfer"}
-          </button>
+          </Button>
         </div>
       </div>
     </section>

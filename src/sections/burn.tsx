@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { InputNumber } from "../components/InputNumber";
 import TokenRepository from "../repositories/tokenRepository";
+import { Button } from "@/components/ui/button"
 
 interface IBurnProps {
   loading: boolean;
@@ -44,7 +45,7 @@ export function BurnSection({
               setBurnAmount(event.target.value);
             }}
           />
-          <button onClick={handleBurnSubmit}>{loading ? "..." : "Burn"}</button>
+          <Button onClick={handleBurnSubmit}>{loading ? "..." : "Burn"}</Button>
         </div>
       </div>
     </section>
