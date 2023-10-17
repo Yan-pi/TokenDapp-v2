@@ -9,7 +9,7 @@ class TokenRepository {
   constructor(provider: ethers.providers.Web3Provider) {
     this.provider = provider;
     this.token = ERC20ABI__factory.connect(
-      process.env.REACT_APP_TOKEN_ADDRESS || "",
+      import.meta.env.VITE_TOKEN_ADDRESS || "",
       provider,
     );
   }

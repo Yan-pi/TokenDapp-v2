@@ -49,7 +49,8 @@ function App() {
   // Saving provider in state
   useEffect(() => {
     setProvider(getProvider());
-  }, []);
+    console.log(import.meta.env.VITE_TOKEN_ADDRESS)
+    }, []);
 
   // If provider exists, initiate the token repository
   useEffect(() => {
