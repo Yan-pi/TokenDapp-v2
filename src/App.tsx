@@ -10,10 +10,13 @@ import { ethers } from "ethers";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { RocketIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 function App() {
   const [loading, setLoading] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
+  const [totalSupply, setTotalSupply] = useState("");
   const [balance, setBalance] = useState("");
   const [provider, setProvider] = useState<
     ethers.providers.Web3Provider | undefined
@@ -46,6 +49,22 @@ function App() {
       return provider;
     }
   }
+
+  useEffect(() => {
+    async function fetchTotalSupply() {
+      try {
+        setLoading(true);
+        const supply = await tokenRepository?.totalSupply();
+        setTotalSupply(supply || "");
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchTotalSupply();
+  }, [tokenRepository, setLoading]);
 
   // Saving provider in state
   useEffect(() => {
@@ -96,16 +115,30 @@ function App() {
 
   // Returning the page content
   return (
-    <div className="flex flex-col m-6">
+    <div className="flex flex-col m-6 mx-10">
       {/* HEADER */}
-      <header>
-        <div className="flex flex-row  justify-between">
-          <p className="font-bold text-lg">Pie Token</p>
+      <header className="mb-14">
+        <div className="flex flex-row justify-between">
+          <div>
+            <h1 className="font-bold text-3xl my-4">Pie Token</h1>
+            <Badge className="p-2">
+              Total Supply: {totalSupply || "..."} LTK
+            </Badge>
+          </div>
           {walletAddress ? (
             <>
-              <p> {walletAddress}</p>
-              <div>
-                <div> Saldo: {balance || "..."} PIE</div>
+              <div className="flex ">
+                <div className="flex flex-col gap-3 items-end">
+                  <Badge variant="secondary" className="p-3 font-mono text-sm"> {walletAddress}</Badge>
+                  <Badge className="p-2">
+                    {" "}
+                    Saldo: {balance || "..."} PIE
+                  </Badge>
+                </div>
+                <Avatar className="m-2">
+                  <AvatarImage src="" />
+                  <AvatarFallback>{walletAddress.slice(0, 3)}</AvatarFallback>
+                </Avatar>
               </div>
             </>
           ) : (
