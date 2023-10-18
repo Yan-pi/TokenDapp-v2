@@ -6,6 +6,7 @@ import { BurnSection } from "./sections/burn";
 import { TransferSection } from "./sections/transfer";
 import TokenRepository from "./repositories/tokenRepository";
 import { ethers } from "ethers";
+import UserProfile from "./components/UserProfile";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { RocketIcon } from "@radix-ui/react-icons";
@@ -133,12 +134,11 @@ function App() {
                   <Badge className="p-2">
                     {" "}
                     Saldo: {balance || "..."} PIE
+                    {walletAddress}
                   </Badge>
+                  <Badge className="p-2"> Saldo: {balance || "..."} PIE</Badge>
                 </div>
-                <Avatar className="m-2">
-                  <AvatarImage src="" />
-                  <AvatarFallback>{walletAddress.slice(0, 3)}</AvatarFallback>
-                </Avatar>
+                <UserProfile walletAddress = {walletAddress}/>
               </div>
             </>
           ) : (
