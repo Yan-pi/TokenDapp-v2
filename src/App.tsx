@@ -12,7 +12,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { RocketIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -121,19 +120,17 @@ function App() {
       <header className="mb-14">
         <div className="flex flex-row justify-between">
           <div>
-            <h1 className="font-bold text-3xl my-4">Pie Token</h1>
-            <Badge className="p-2">
-              Total Supply: {totalSupply || "..."} LTK
+            <h1 className="font-bold text-3xl my-4 ">Pie Token</h1>
+            <Badge variant="secondary" className="text-sm text-muted-foreground">
+              <p>Total Supply: {totalSupply || "..."} LTK</p>
             </Badge>
           </div>
           {walletAddress ? (
             <>
               <div className="flex ">
                 <div className="flex flex-col gap-3 items-end">
-                  <Badge variant="secondary" className="p-3 font-mono text-sm"> {walletAddress}</Badge>
-                  <Badge className="p-2">
+                  <Badge variant="secondary" className="p-3 font-mono text-sm">
                     {" "}
-                    Saldo: {balance || "..."} PIE
                     {walletAddress}
                   </Badge>
                   <Badge className="p-2"> Saldo: {balance || "..."} PIE</Badge>
