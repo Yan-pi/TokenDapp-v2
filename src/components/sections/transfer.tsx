@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { InputText } from "../components/InputText";
-import { InputNumber } from "../components/InputNumber";
-import TokenRepository from "../repositories/tokenRepository";
+import { InputText } from "../InputText";
+import { InputNumber } from "../InputNumber";
+import TokenRepository from "../../lib/repositories/tokenRepository";
 import { Button } from "@/components/ui/button"
 
 interface ITransferProps {

@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { ERC20ABI, ERC20ABI__factory } from "../smc-types";
+import { ERC20ABI, ERC20ABI__factory } from "../../smc-types";
 import { Web3Provider } from "@ethersproject/providers";
 
 class TokenRepository {

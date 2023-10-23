@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { InputNumber } from "../components/InputNumber";
-import TokenRepository from "../repositories/tokenRepository";
+import { InputNumber } from "../InputNumber";
+import TokenRepository from "../../lib/repositories/tokenRepository";
 import { Button } from "@/components/ui/button"
 
 interface IBurnProps {
