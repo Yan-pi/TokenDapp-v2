@@ -4,18 +4,10 @@ import { BurnSection } from "./../components/sections/burn";
 import { TransferSection } from "./../components/sections/transfer";
 import TokenRepository from "./../lib/repositories/tokenRepository";
 import { ethers } from "ethers";
-import UserProfile from "./../components/UserProfile";
-
-
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import AlertWallet from "@/components/AlertWallet";
 
-function TransactionPage() {
-  const [loading, setLoading] = useState(false);
-  const [walletAddress, setWalletAddress] = useState("");
-  const [totalSupply, setTotalSupply] = useState("");
-  const [balance, setBalance] = useState("");
+function TransactionPage(props: {loading: boolean, setLoading: React.Dispatch<React.SetStateAction<boolean>>, tokenRepository: TokenRepository | undefined, fetchBalance: () => Promise<void>}) {
+
   const [provider, setProvider] = useState<
     ethers.providers.Web3Provider | undefined
   >();
@@ -105,7 +97,7 @@ function TransactionPage() {
   return (
     <div className="flex flex-col m-6 mx-10">
       {/* HEADER */}
-      <header className="mb-14">
+      {/* <header className="mb-14">
         <div className="flex flex-row justify-between">
           <div>
             <h1 className="font-bold text-3xl my-4 ">Pie Token</h1>
@@ -133,32 +125,32 @@ function TransactionPage() {
             <Button onClick={connect}>Connect Wallet</Button>
           )}
         </div>
-      </header>
+      </header> */}
 
       {/* SECTIONS */}
       <div>
         {/* MINT */}
         <MintSection
-          loading={loading}
-          setLoading={setLoading}
-          tokenRepository={tokenRepository}
-          fetchBalance={fetchBalance}
+          loading={props.loading}
+          setLoading={props.setLoading}
+          tokenRepository={props.tokenRepository}
+          fetchBalance={props.fetchBalance}
         />
 
         {/* Burn */}
         <BurnSection
-          loading={loading}
-          setLoading={setLoading}
-          tokenRepository={tokenRepository}
-          fetchBalance={fetchBalance}
+          loading={props.loading}
+          setLoading={props.setLoading}
+          tokenRepository={props.tokenRepository}
+          fetchBalance={props.fetchBalance}
         />
 
         {/* Transfer */}
         <TransferSection
-          loading={loading}
-          setLoading={setLoading}
-          tokenRepository={tokenRepository}
-          fetchBalance={fetchBalance}
+          loading={props.loading}
+          setLoading={props.setLoading}
+          tokenRepository={props.tokenRepository}
+          fetchBalance={props.fetchBalance}
         />
       </div>
     </div>
