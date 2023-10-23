@@ -6,10 +6,10 @@ import TokenRepository from "./../lib/repositories/tokenRepository";
 import { ethers } from "ethers";
 import UserProfile from "./../components/UserProfile";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { RocketIcon } from "@radix-ui/react-icons";
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import AlertWallet from "@/components/AlertWallet";
 
 function TransactionPage() {
   const [loading, setLoading] = useState(false);
@@ -98,17 +98,7 @@ function TransactionPage() {
   // If no provider was set, that means metamask is not active or not installed
   if (!provider) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="bg-white rounded-lg p-2 shadow-lg">
-          <Alert>
-            <RocketIcon className="h-4 w-4" />
-            <AlertTitle>Metamask not installed</AlertTitle>
-            <AlertDescription>
-              Please install Metamask to use this application.
-            </AlertDescription>
-          </Alert>
-        </div>
-      </div>
+      <AlertWallet />
     );
   }
 
