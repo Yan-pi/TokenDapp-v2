@@ -1,22 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { InputNumber } from "../components/InputNumber";
-import TokenRepository from "../repositories/tokenRepository";
+import { Button } from "@/components/ui/button"
+import { DataContext } from "@/components/context/DataContext/dataContext";
 
-interface IBurnProps {
-  loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  tokenRepository: TokenRepository | undefined;
-  fetchBalance: () => Promise<void>;
-}
-
-export function BurnSection({
-  loading,
-  setLoading,
-  tokenRepository,
-  fetchBalance,
-}: IBurnProps) {
+export function BurnSection() {
   const [burnAmount, setBurnAmount] = useState("");
 
+  const {loading, setLoading, fetchBalance,tokenRepository } = useContext(DataContext);
   async function handleBurnSubmit() {
     try {
       setLoading(true);
@@ -44,7 +34,7 @@ export function BurnSection({
               setBurnAmount(event.target.value);
             }}
           />
-          <button onClick={handleBurnSubmit}>{loading ? "..." : "Burn"}</button>
+          <Button onClick={handleBurnSubmit}>{loading ? "..." : "Burn"}</Button>
         </div>
       </div>
     </section>

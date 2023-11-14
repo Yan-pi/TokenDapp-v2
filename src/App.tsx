@@ -1,24 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { MintSection } from "./sections/mint";
 import { BurnSection } from "./sections/burn";
 import { TransferSection } from "./sections/transfer";
-import TokenRepository from "./repositories/tokenRepository";
-import { ethers } from "ethers";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { RocketIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button";
+import { DataContext } from "./components/context/DataContext/dataContext";
+import HeaderUser from "./components/HeaderUser";
 
 function App() {
-  const [loading, setLoading] = useState(false);
-  const [walletAddress, setWalletAddress] = useState("");
-  const [balance, setBalance] = useState("");
-  const [provider, setProvider] = useState<
-    ethers.providers.Web3Provider | undefined
-  >();
-  const [tokenRepository, setTokenRepository] = useState<TokenRepository>();
+  const {provider, tokenRepository, setLoading, setWalletAddress} = useContext(DataContext);
+  const [totalSupply, setTotalSupply] = useState("");
 
   // Connect wallet to application
   async function connect(): Promise<string[] | undefined> {
@@ -37,45 +31,21 @@ function App() {
     }
   }
 
-  // Get the metamask provider
-  function getProvider() {
-    if (window.ethereum !== undefined) {
-      const windowEthereum: any = window.ethereum;
-      // Get the provider and signer from the browser window
-      const provider = new ethers.providers.Web3Provider(windowEthereum);
-      return provider;
-    }
-  }
-
-  // Saving provider in state
   useEffect(() => {
-    setProvider(getProvider());
-    console.log(import.meta.env.VITE_TOKEN_ADDRESS);
-  }, []);
-
-  // If provider exists, initiate the token repository
-  useEffect(() => {
-    if (provider) {
-      const tokenRepository = new TokenRepository(provider);
-      setTokenRepository(tokenRepository);
+    async function fetchTotalSupply() {
+      try {
+        setLoading(true);
+        const supply = await tokenRepository?.totalSupply();
+        setTotalSupply(supply || "");
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     }
-  }, [provider]);
 
-  async function fetchBalance() {
-    try {
-      setBalance("...");
-      const _balance = await tokenRepository?.balanceOf(walletAddress);
-      console.log(_balance);
-      setBalance(_balance || "");
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  useEffect(() => {
-    fetchBalance();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tokenRepository, walletAddress]);
+    fetchTotalSupply();
+  }, [tokenRepository, setLoading]);
 
   // If no provider was set, that means metamask is not active or not installed
   if (!provider) {
@@ -96,49 +66,23 @@ function App() {
 
   // Returning the page content
   return (
-    <div className="flex flex-col m-6">
+    <div className="flex flex-col m-6 mx-10">
       {/* HEADER */}
-      <header>
-        <div className="flex flex-row  justify-between">
-          <p className="font-bold text-lg">Pie Token</p>
-          {walletAddress ? (
-            <>
-              <p> {walletAddress}</p>
-              <div>
-                <div> Saldo: {balance || "..."} PIE</div>
-              </div>
-            </>
-          ) : (
-            <Button onClick={connect}>Connect Wallet</Button>
-          )}
-        </div>
-      </header>
+      <HeaderUser  
+      connect={connect} 
+      totalSupply={totalSupply}
+      />
 
       {/* SECTIONS */}
       <div>
         {/* MINT */}
-        <MintSection
-          loading={loading}
-          setLoading={setLoading}
-          tokenRepository={tokenRepository}
-          fetchBalance={fetchBalance}
-        />
+        <MintSection/>
 
         {/* Burn */}
-        <BurnSection
-          loading={loading}
-          setLoading={setLoading}
-          tokenRepository={tokenRepository}
-          fetchBalance={fetchBalance}
-        />
+        <BurnSection/>
 
         {/* Transfer */}
-        <TransferSection
-          loading={loading}
-          setLoading={setLoading}
-          tokenRepository={tokenRepository}
-          fetchBalance={fetchBalance}
-        />
+        <TransferSection/>
       </div>
     </div>
   );

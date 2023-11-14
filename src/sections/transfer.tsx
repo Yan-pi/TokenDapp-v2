@@ -1,24 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { InputText } from "../components/InputText";
 import { InputNumber } from "../components/InputNumber";
-import TokenRepository from "../repositories/tokenRepository";
+import { Button } from "@/components/ui/button"
+import { DataContext } from "@/components/context/DataContext/dataContext";
 
-interface ITransferProps {
-  loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  tokenRepository: TokenRepository | undefined;
-  fetchBalance: () => Promise<void>;
-}
-
-export function TransferSection({
-  loading,
-  setLoading,
-  tokenRepository,
-  fetchBalance,
-}: ITransferProps) {
+export function TransferSection() {
   const [transferAmount, setTransferAmount] = useState("");
   const [transferAddress, setTransferAddress] = useState("");
-
+  
+  const {loading, setLoading, fetchBalance,tokenRepository} = useContext(DataContext);
   async function handleTransferSubmit() {
     try {
       setLoading(true);
@@ -61,9 +51,9 @@ export function TransferSection({
               setTransferAmount(event.target.value);
             }}
           />
-          <button onClick={handleTransferSubmit}>
+          <Button onClick={handleTransferSubmit}>
             {loading ? "..." : "Transfer"}
-          </button>
+          </Button>
         </div>
       </div>
     </section>
