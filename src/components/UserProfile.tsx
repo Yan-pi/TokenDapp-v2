@@ -6,6 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { ModeToggle } from "./ModeToggle";
 
 function UserProfile(props: { walletAddress: string }) {
   return (
@@ -26,12 +27,7 @@ function UserProfile(props: { walletAddress: string }) {
           </div>
           <div className="grid gap-2">
             <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="width">Width</Label>
-              <Input
-                id="width"
-                defaultValue="100%"
-                className="col-span-2 h-8"
-              />
+              <ModeToggle/>
             </div>
           </div>
         </div>
