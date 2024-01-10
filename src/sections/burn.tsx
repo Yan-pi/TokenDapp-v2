@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
 import { InputNumber } from "../components/InputNumber";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import { DataContext } from "@/components/context/DataContext/dataContext";
 
 export function BurnSection() {
   const [burnAmount, setBurnAmount] = useState("");
 
-  const {loading, setLoading, fetchBalance,tokenRepository } = useContext(DataContext);
+  const { loading, setLoading, fetchBalance, tokenRepository } =
+    useContext(DataContext);
   async function handleBurnSubmit() {
     try {
       setLoading(true);

@@ -1,14 +1,14 @@
-import {  useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { InputNumber } from "../components/InputNumber";
 import { InputText } from "../components/InputText";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import { DataContext } from "@/components/context/DataContext/dataContext";
 
 export function MintSection() {
   const [mintAmount, setMintAmount] = useState("");
   const [mintAddress, setMintAddress] = useState("");
-  const {loading, setLoading, fetchBalance,tokenRepository } = useContext(DataContext);
-
+  const { loading, setLoading, fetchBalance, tokenRepository } =
+    useContext(DataContext);
 
   async function handleMintSubmit() {
     try {

@@ -11,7 +11,8 @@ import { DataContext } from "./components/context/DataContext/dataContext";
 import HeaderUser from "./components/HeaderUser";
 
 function App() {
-  const {provider, tokenRepository, setLoading, setWalletAddress} = useContext(DataContext);
+  const { provider, tokenRepository, setLoading, setWalletAddress } =
+    useContext(DataContext);
   const [totalSupply, setTotalSupply] = useState("");
 
   // Connect wallet to application
@@ -68,21 +69,18 @@ function App() {
   return (
     <div className="flex flex-col m-6 mx-10">
       {/* HEADER */}
-      <HeaderUser  
-      connect={connect} 
-      totalSupply={totalSupply}
-      />
+      <HeaderUser connect={connect} totalSupply={totalSupply} />
 
       {/* SECTIONS */}
       <div>
         {/* MINT */}
-        <MintSection/>
+        <MintSection />
 
         {/* Burn */}
-        <BurnSection/>
+        <BurnSection />
 
         {/* Transfer */}
-        <TransferSection/>
+        <TransferSection />
       </div>
     </div>
   );

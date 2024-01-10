@@ -1,14 +1,15 @@
 import { useContext, useState } from "react";
 import { InputText } from "../components/InputText";
 import { InputNumber } from "../components/InputNumber";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import { DataContext } from "@/components/context/DataContext/dataContext";
 
 export function TransferSection() {
   const [transferAmount, setTransferAmount] = useState("");
   const [transferAddress, setTransferAddress] = useState("");
-  
-  const {loading, setLoading, fetchBalance,tokenRepository} = useContext(DataContext);
+
+  const { loading, setLoading, fetchBalance, tokenRepository } =
+    useContext(DataContext);
   async function handleTransferSubmit() {
     try {
       setLoading(true);

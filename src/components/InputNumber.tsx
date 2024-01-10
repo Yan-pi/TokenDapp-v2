@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label"
+import { Label } from "@/components/ui/label";
 
 interface IInputNumberProps {
   label: string;
@@ -16,7 +16,7 @@ export function InputNumber({
 }: IInputNumberProps) {
   return (
     <div>
-      <Label>{ label }</Label>
+      <Label>{label}</Label>
       <Input
         type="number"
         placeholder={placeholder}

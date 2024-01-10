@@ -23,10 +23,12 @@ export const DataContext = createContext<IDataContext>({
   setLoading: () => {},
   setWalletAddress: () => {},
   setBalance: () => {},
-  fetchBalance: () => { return new Promise<void>(() => {}) },
-})
+  fetchBalance: () => {
+    return new Promise<void>(() => {});
+  },
+});
 
-export function DataContextProvider({ children }: { children: ReactNode }){
+export function DataContextProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
   const [balance, setBalance] = useState("");
@@ -35,8 +37,6 @@ export function DataContextProvider({ children }: { children: ReactNode }){
   >();
   const [tokenRepository, setTokenRepository] = useState<TokenRepository>();
 
-
-  
   // Get the metamask provider
   function getProvider() {
     if (window.ethereum !== undefined) {
@@ -54,7 +54,6 @@ export function DataContextProvider({ children }: { children: ReactNode }){
     console.log(import.meta.env.VITE_TOKEN_ADDRESS);
   }, []);
 
-  
   // If provider exists, initiate the token repository
   useEffect(() => {
     if (provider) {
@@ -79,10 +78,9 @@ export function DataContextProvider({ children }: { children: ReactNode }){
     }
   }
 
-  
-  return(
-    <DataContext.Provider value={
-      {
+  return (
+    <DataContext.Provider
+      value={{
         loading,
         walletAddress,
         balance,
@@ -91,10 +89,10 @@ export function DataContextProvider({ children }: { children: ReactNode }){
         setLoading,
         setWalletAddress,
         setBalance,
-        fetchBalance
-      }
-    }>
-      { children }
+        fetchBalance,
+      }}
+    >
+      {children}
     </DataContext.Provider>
-  )
+  );
 }
