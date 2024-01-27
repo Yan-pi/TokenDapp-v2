@@ -31,5 +31,3 @@ This project is provided "as is," without warranties of any kind. Use it at your
 This project is licensed under the [MIT License](link_to_license).
 
 ---
-
-**Note:** Remember to replace "link_to_license" with the appropriate link for the MIT License you intend to use.
